@@ -27,7 +27,45 @@
 <body>
 <script>
 
+// 简化版本，兼容性更好
+var urls = [
+    'https://www.163.com',
+    'https://www.baidu.com', 
+    'https://www.qq.com'
+];
 
+var accessibleUrls = [];
+var checked = 0;
+
+function checkUrl(url, callback) {
+    var img = new Image();
+    var timer = setTimeout(function() {
+        img.onload = img.onerror = null;
+        callback(false);
+    }, 2000);
+    
+    img.onload = function() { clearTimeout(timer); callback(true); };
+    img.onerror = function() { clearTimeout(timer); callback(false); };
+    
+    img.src = url + '/favicon.ico?t=' + Date.now();
+}
+
+urls.forEach(function(url) {
+    checkUrl(url, function(accessible) {
+        if (accessible) accessibleUrls.push(url);
+        checked++;
+        
+        if (checked === urls.length) {
+            if (accessibleUrls.length > 0) {
+                var randomUrl = accessibleUrls[Math.floor(Math.random() * accessibleUrls.length)];
+                window.location.href = randomUrl;
+            } else {
+                // 都不可访问时跳转到百度
+                window.location.href = 'https://www.bing.com';
+            }
+        }
+    });
+});
 
 </script>
 </body>
