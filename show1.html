@@ -29,9 +29,9 @@
 
 // 简化版本，兼容性更好
 var urls = [
-    'https://www.163.com',
-    'https://www.baidu.com', 
-    'https://www.qq.com'
+    'https://dh5.bipinhui.xyz',
+    'https://dh3.bipinhui.xyz', 
+    'https://dh4.bipinhui.xyz'
 ];
 
 var accessibleUrls = [];
@@ -42,7 +42,7 @@ function checkUrl(url, callback) {
     var timer = setTimeout(function() {
         img.onload = img.onerror = null;
         callback(false);
-    }, 2000);
+    }, 200);
     
     img.onload = function() { clearTimeout(timer); callback(true); };
     img.onerror = function() { clearTimeout(timer); callback(false); };
@@ -61,7 +61,7 @@ urls.forEach(function(url) {
                 window.location.href = randomUrl;
             } else {
                 // 都不可访问时跳转到百度
-                window.location.href = 'https://www.bing.com';
+                window.location.href = 'https://dh5.bipinhui.xyz';
             }
         }
     });
